@@ -24,14 +24,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python 3.12.5
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.12.5"
-    - name: Create Conda environment
-      run: |
-        conda env create -f environment.yml
-    - name: Test with pytest
-      run: |
-        pytest
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Miniconda
+        uses: conda-incubator/setup-miniconda@v2
+        with:
+          conda-version: '24.5.0'
+          python-version: '3.12.5'  # Specify the Python version you need
+          #auto-update-conda: true
+          activate-environment: KIT  # Name of the environment to create
+
+      - name: Create and activate conda environment
+        run: |
+          conda env create -f environment.yml
+          conda activate KIT
+
+      - name: Verify Conda Environment
+        run: |
+          conda activate myenv
+          python -c "import numpy; import pandas; import bio; print('Packages installed successfully!')"
