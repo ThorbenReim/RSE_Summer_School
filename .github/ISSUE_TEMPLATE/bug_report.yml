@@ -1,0 +1,47 @@
+markdown
+# Bug Report
+
+## Description
+A clear and concise description of the bug. Include any relevant background information, such as:
+- The feature or functionality that is not working as expected.
+- Any recent changes or updates that might be related to the issue.
+
+## Steps to Reproduce
+Please provide a detailed step-by-step guide on how to reproduce the bug. Include:
+1. What code or commands were executed.
+2. Any specific configurations, settings, or files that are required.
+3. Example input data, if applicable.
+4. The sequence of actions leading to the issue.
+
+## Expected Behavior
+Describe what you expected to happen when following the steps provided. Be as specific as possible about the desired outcome, including:
+- Output messages.
+- State of the application.
+- Changes expected in the system.
+
+## Actual Behavior
+Describe what actually happened instead of what was expected. Include:
+- Any error messages, warnings, or stack traces that were generated.
+- The state of the application or data after executing the steps to reproduce the bug.
+
+## Environment
+Provide information about your development environment to help diagnose the issue:
+- Library version: (e.g., 1.0.0)
+- Python version: (e.g., 3.8.5)
+- Operating System: (e.g., Windows 10, macOS Big Sur, Ubuntu 20.04)
+- Dependencies: List any relevant dependencies or libraries that are used.
+- Virtual environment: Specify if you are using a virtual environment (e.g., `venv`, `conda`, etc.), and provide details.
+
+## Additional Information
+Include any other context that might be relevant, such as:
+- Screenshots or logs if they help illustrate the problem.
+- Any related issues or links to discussions about similar problems.
+- Changes made to configuration files, if relevant.
+
+## Proposed Solution (optional)
+If you have an idea about how to fix the issue or have noticed patterns leading to the bug, feel free to suggest a potential solution or a workaround.
+
+## Code Samples
+Provide any relevant code snippets that demonstrate the bug or are related to the issue:
+- Include concise, complete, and runnable code if possible.
+- Highlight any parts of the code where you suspect the bug might be.
