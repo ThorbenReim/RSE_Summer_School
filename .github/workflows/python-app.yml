@@ -28,7 +28,6 @@ jobs:
           conda-version: '24.5.0'
           python-version: '3.12.5'  # Specify the Python version you need
           #auto-update-conda: true
-          activate-environment: KIT  # Name of the environment to create
 
       - name: Check Conda set up
         run: |
