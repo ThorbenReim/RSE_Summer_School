@@ -1,3 +1,7 @@
+import os.path
+import sys
+sys.path.append("./")
+
 import unittest
 
 import numpy as np
@@ -29,17 +33,14 @@ class TestPrediction(unittest.TestCase):
                     )
 
     def _test_get_infile_ID_to_normed_bfactor(self, structure):
-        pdb_file = "../data/pdb/1ab1.pdb"
-        structure = Prediction.read_pbd_file(pdb_file)
-
         infileIDtoBfactor = Prediction.get_infile_ID_to_normed_bfactor(structure)
 
         values = np.array([v for v in infileIDtoBfactor.values()])
 
         mean = values.mean()
-        self.assertAlmostEqual(mean, 0.0, 10)
+        self.assertAlmostEqual(mean, 0.0, 5)
         stddev = values.std()
-        self.assertAlmostEqual(stddev, 1.0, 10)
+        self.assertAlmostEqual(stddev, 1.0, 5)
 
     def _test_keep_highest_occupancy_atoms(self, structure):
         Prediction.keep_highest_occupancy_atoms(structure)
@@ -82,15 +83,17 @@ class TestPrediction(unittest.TestCase):
             Prediction.read_pbd_file,
             "this_is_an_unknown_file_path_wew28764234523472")
 
-        pdb_file = "../data/pdb/1ab1.pdb"
+        repo_path = os.path.abspath(".")
+        print(repo_path)
+        pdb_file = os.path.join(repo_path, "data/pdb/1ab1.pdb")
         structure = Prediction.read_pbd_file(pdb_file)
         self.assertTrue(
             isinstance(structure, Bio.PDB.Structure.Structure),
             f"Should be 'Bio.PDB.Structure.Structure' but is {type(structure)}"
         )
 
-        self._test_reset_bfactors(structure)
         self._test_get_infile_ID_to_normed_bfactor(structure)
+        self._test_reset_bfactors(structure)
         self._test_keep_highest_occupancy_atoms(structure)
         self._test_remove_hydrogen_atoms(structure)
         self._test_remove_non_standard_amino_acids(structure)

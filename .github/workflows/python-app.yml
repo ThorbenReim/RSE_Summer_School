@@ -48,6 +48,4 @@ jobs:
 
       - name: Run Tests
         run: |
-            echo "Start running tests ..."
             conda run -n KIT pytest test/test_prediction.py
-            echo "Done running tests!"
