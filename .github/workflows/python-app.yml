@@ -49,4 +49,4 @@ jobs:
       - name: Run Tests
         run: |
           pip install pytest pytest-cov
-          conda run -n KIT pytest test/test_prediction.py
+          pytest test/test_prediction.py
