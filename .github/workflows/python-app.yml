@@ -43,5 +43,5 @@ jobs:
         run: |
           echo "Start verifying conda environment ..."
           conda activate KIT
-          python -c "import numpy; import pandas; import bio; print('Packages installed successfully!')"
+          python -c "import numpy; import pandas; import Bio; print('Packages installed successfully!')"
           echo "Conda environment successfully verifyied!"
