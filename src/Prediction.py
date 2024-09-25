@@ -64,7 +64,7 @@ class Prediction:
             print(string)
 
     @staticmethod
-    def _read_pbd_file(pdb_file):
+    def read_pbd_file(pdb_file):
         parser = Bio.PDB.PDBParser(QUIET=True)
         pdb_file = os.path.abspath(pdb_file)
         if not os.path.exists(pdb_file):
@@ -75,8 +75,6 @@ class Prediction:
 
     @staticmethod
     def reset_bfactors(structure, infileIDtoBfactor):
-        b_factors = []
-
         for chain in structure[0]:
             for residue in chain:
                 for atom in residue:
@@ -84,8 +82,6 @@ class Prediction:
                     if infileID in infileIDtoBfactor:
                         bfac = infileIDtoBfactor[infileID]
                         atom.set_bfactor(bfac)
-                        if bfac is None:
-                            true = False
         return structure
 
     @staticmethod
@@ -137,6 +133,20 @@ class Prediction:
         return infileIDtoBfactorAbsDiff
 
     @staticmethod
+    def remove_hydrogen_atoms(structure):
+        for model in structure:
+            for chain in model:
+                for residue in chain:
+                    atoms_to_delete = []
+                    for atom in residue.get_atoms():
+                        if atom.element == 'H':
+                            atoms_to_delete.append(atom)
+
+                    # Remove collected hydrogen atoms from the chain
+                    for atom in atoms_to_delete:
+                        atom.get_parent().detach_child(atom.id)
+
+    @staticmethod
     def remove_non_standard_amino_acids(structure):
         # Iterate over all models in the structure
         for model in structure:
@@ -155,15 +165,6 @@ class Prediction:
                 for residue in residues_to_delete:
                     chain.detach_child(residue.id)
 
-                # Collect and remove hydrogen atoms
-                atoms_to_delete = []
-                for atom in chain.get_atoms():
-                    if atom.element == 'H':
-                        atoms_to_delete.append(atom)
-
-                # Remove collected hydrogen atoms from the chain
-                for atom in atoms_to_delete:
-                    atom.get_parent().detach_child(atom.id)
                     
     @staticmethod
     def keep_highest_occupancy_atoms(structure):
@@ -207,7 +208,8 @@ class Prediction:
         Prediction._print_output(y_pred, graph)
 
         if pdb_file_path:
-            structure = Prediction._read_pbd_file(pdb_file_path)
+            structure = Prediction.read_pbd_file(pdb_file_path)
+            Prediction.remove_hydrogen_atoms(structure)
             Prediction.remove_non_standard_amino_acids(structure)
             Prediction.keep_highest_occupancy_atoms(structure)
             infileIDtoBfactorReal = Prediction.get_infile_ID_to_normed_bfactor(structure)
