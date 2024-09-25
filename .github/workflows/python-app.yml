@@ -45,3 +45,9 @@ jobs:
           conda activate KIT
           python -c "import numpy; import pandas; import Bio; print('Packages installed successfully!')"
           echo "Conda environment successfully verifyied!"
+
+      - name: Run Tests
+        run: |
+            echo "Start running tests ..."
+            conda run -n KIT pytest test/test_prediction.py
+            echo "Done running tests!"
