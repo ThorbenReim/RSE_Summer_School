@@ -21,19 +21,23 @@ jobs:
         run: echo "Hello"
         
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Set up Miniconda
-        uses: conda-incubator/setup-miniconda@v2
+      - name: Set up Conda
+        uses: conda-incubator/setup-conda@v4
         with:
           conda-version: '24.5.0'
           python-version: '3.12.5'  # Specify the Python version you need
           #auto-update-conda: true
           activate-environment: KIT  # Name of the environment to create
+
+      - name: Check Conda set up
+        run: |
+          conda --version
 
       - name: Create and activate conda environment
         run: |
