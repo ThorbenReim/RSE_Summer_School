@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Print Hello
         run: echo "Hello"
         
@@ -25,7 +25,7 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Miniconda
         uses: conda-incubator/setup-miniconda@v2
@@ -37,10 +37,13 @@ jobs:
 
       - name: Create and activate conda environment
         run: |
+          echo "Start installing conda environment ..."
           conda env create -f environment.yml
-          conda activate KIT
+          echo "Conda environment created successfully!"
 
       - name: Verify Conda Environment
         run: |
-          conda activate myenv
+          echo "Start verifying conda environment ..."
+          conda activate KIT
           python -c "import numpy; import pandas; import bio; print('Packages installed successfully!')"
+          echo "Conda environment successfully verifyied!"
