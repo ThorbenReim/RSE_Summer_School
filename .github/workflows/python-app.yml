@@ -48,4 +48,5 @@ jobs:
 
       - name: Run Tests
         run: |
-            conda run -n KIT pytest test/test_prediction.py
+          pip install pytest pytest-cov
+          conda run -n KIT pytest test/test_prediction.py
